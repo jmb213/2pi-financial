@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/JPZ13/2pi-financial.png?label=ready&title=Ready)](https://waffle.io/JPZ13/2pi-financial)
 # 2pi-financial
 
 # Getting set up
