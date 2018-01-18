@@ -1,0 +1,122 @@
+<head>
+  <meta charset="utf-8">
+
+<!-- TODO -->
+<!-- Install with npm install vega -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.5/vega.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/1.3.1/vega-lite.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/2.2.0/vega-embed.min.js" charset="utf-8"></script>
+ 
+  <style media="screen">
+    /* Add space between vega-embed links  */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Consumption Sample</h1>
+  
+  <div id="consumption_plot"></div>
+
+  <script>
+  var vSpec = {
+  "width": 600,
+  "height": 400,
+  "padding": "auto",
+  "data": [
+    {
+      "name": "consumption",
+      "url": "data/sample_consumption.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"initial_wealth": "number", "desired_annuity": "number", "probability": "number"}
+      }
+    },
+    {
+      "name": "curr_wealth",
+      "url": "data/sample_currwealth.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"wealth": "number"}
+      }
+    },
+  ],
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "linear",
+      "domain": {"data": "consumption", "field": "desired_annuity"},
+      "range": "width",
+      "zero": "true",
+      "round": "true"
+    },
+    {
+      "name": "yscale",
+      "type": "linear",
+      "domain": {"data": "consumption", "field": "initial_wealth"},
+      "range": "height",
+      "zero": "true",
+      "round": "true"
+    },
+    {
+      "name": "colorscale",
+      "type": "linear",
+      "domain": [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+      "range": ["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8",
+                   "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+      "zero": false
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "title": "Desired annuity",
+      "scale": "xscale"
+    },
+    {
+      "type": "y",
+      "title": "Initial wealth",
+      "scale": "yscale"
+    }
+  ],
+  "legends": [
+    {
+      "fill": "colorscale", 
+      "values": [0, 0.3, 0.7, 1],     
+      "format": "%"
+    }
+  ],
+  "marks": [
+    {     
+      "type": "rect",
+      "from": {
+        "data": "consumption"
+      },
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale", "field": "desired_annuity", "offset": -3},
+          "width": {"value": 6},
+          "y": {"scale": "yscale", "field": "initial_wealth", "offset": -3},
+          "height": {"value": 6},
+          "fill": {"scale": "colorscale", "field": "probability"}
+        }
+      }
+    }
+  ]
+}
+
+  var embedSpec = {
+    mode: "vega", 
+    spec: vSpec,
+    actions: false
+  };
+
+  vg.embed("#consumption_plot", embedSpec, function(error, result) {
+  
+  });
+  </script>
+</body>
+</html>
