@@ -1,0 +1,110 @@
+<head>
+  <title>ROC Curves</title>
+  <meta charset="utf-8">
+
+<!-- TODO -->
+<!-- Install with npm install vega -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.5/vega.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/1.3.1/vega-lite.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/2.2.0/vega-embed.min.js" charset="utf-8"></script>
+ 
+  <style media="screen">
+    /* Add space between vega-embed links  */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Wealth Probability Sample</h1>
+  
+  <div id="wealthprob_plot"></div>
+
+  <script>
+  var vSpec = {
+  "width": 600,
+  "height": 400,
+  "padding": "auto",
+  "data": [
+    {
+      "name": "wealthprob",
+      "url": "data/sample_wealthprob.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"desired_wealth": "number","probability": "number"}
+      }
+    },
+    {
+      "name": "curr_wealth",
+      "url": "data/sample_currwealth.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"wealth": "number"}
+      }
+    },
+  ],
+  "marks": [
+    {     
+      "type": "line",
+      "from": {
+        "data": "wealthprob"
+      },
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale","field": "desired_wealth"},
+          "y": {"scale": "yscale","field": "probability"},
+          "strokeWidth": {"value": 3},
+          "stroke": {"value": "#4682b4"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "linear",
+      "domain": {"data": "wealthprob", "field": "desired_wealth"},
+      "range": "width",
+      "zero": "true",
+      "round": "true"
+    },
+    {
+      "name": "yscale",
+      "type": "linear",
+      "domain": {"data": "wealthprob", "field": "probability"},
+      "range": "height",
+      "zero": "true",
+      "round": "true",
+      "nice": "true"
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "title": "Desired wealth",
+      "scale": "xscale"
+    },
+    {
+      "type": "y",
+      "title": "Probability",
+      "scale": "yscale",
+      "format": "%"
+    }
+  ]  
+}
+
+
+  var embedSpec = {
+    mode: "vega", 
+    spec: vSpec,
+    actions: false
+  };
+
+  vg.embed("#wealthprob_plot", embedSpec, function(error, result) {
+  
+  });
+  </script>
+</body>
+</html>
