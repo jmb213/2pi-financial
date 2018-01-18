@@ -1,0 +1,250 @@
+<head>
+  <meta charset="utf-8">
+
+<!-- TODO -->
+<!-- Install with npm install vega -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.5/vega.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/1.3.1/vega-lite.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/2.2.0/vega-embed.min.js" charset="utf-8"></script>
+ 
+  <style media="screen">
+    /* Add space between vega-embed links  */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Model Comparison Sample</h1>
+  
+  <div id="modelcomparison_plot"></div>
+
+  <script>
+  var vSpec = {
+  "width": 600,
+  "height": 400,
+  "padding": "auto",
+  "data": [
+    {
+      "name": "spx_data",
+      "url": "data/sample_spxdata.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"time_step": "number","spx": "number"}
+      }
+    },
+    {
+      "name": "model_allocations",
+      "url": "data/sample_modelallocations.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"time_step": "number","model": "string","equity_allocation": "number"}
+      }
+    },
+    {
+      "name": "model_returns",
+      "url": "data/sample_modelreturns.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"time_step": "number","model": "string","return": "number"}
+      }
+    }
+  ],
+  "signals": [
+    {
+      "name": "index_time",
+      "init": 10,
+      "streams": [{
+        "type": "mousemove",
+        "expr": "clamp(eventX(), 0, eventGroup('root').width)",
+        "scale": {"name": "xscale", "invert": true}
+      }]
+    }
+  ],
+  "marks": [
+    { 
+      "name": "vertical_line",
+      "type":"rule",
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale", "signal": "index_time"},
+          "y": {"value": 0},
+          "y2": {"field": {"group": "height"}},
+          "stroke": {"value": "red"}
+        }
+      }
+    },
+    {     
+      "name": "spx_line",
+      "type": "line",
+      "from": {
+        "data": "spx_data"
+      },
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale","field": "time_step"},
+          "y": {"scale": "yscale_spx","field": "spx"},
+          "strokeWidth": {"value": 3},
+          "stroke": {"value": "black"}
+        }
+      }
+    },
+    {
+      "name": "allocation_lines",
+      "type": "group",
+        "from": {
+          "data": "model_allocations",
+          "transform": [{"type": "facet","groupby": "model"}]
+        },
+      "marks": [
+      {
+        "type": "line",
+        "properties": {
+          "update": {
+            "x": {
+              "scale": "xscale",
+              "field": "time_step"
+            },
+            "y": {
+              "scale": "yscale_allocations",
+              "field": "equity_allocation"
+            },
+            "stroke": {"scale": "colorscale","field": "model"},
+            "strokeWidth": {"value": 3},
+            "strokeOpacity": {"value": 0.8}
+          }
+        }
+      }]
+    },
+   {
+      "name": "return_lines",
+      "type": "group",
+        "from": {
+          "data": "model_returns",
+          "transform": [{"type": "facet","groupby": "model"}]
+        },
+      "marks": [
+      {
+        "type": "line",
+        "properties": {
+          "update": {
+            "x": {
+              "scale": "xscale",
+              "field": "time_step"
+            },
+            "y": {
+              "scale": "yscale_returns",
+              "field": "return"
+            },
+            "stroke": {"scale": "colorscale","field": "model"},
+            "strokeWidth": {"value": 3},
+            "strokeOpacity": {"value": 0.8}
+          }
+        }
+      }]
+    }
+  ],
+  "scales": [
+    {
+      "name": "colorscale",
+      "type": "ordinal",
+      "domain": {"data": "model_allocations", "field": "model"},
+      "range": "category10",
+      "zero": "true",
+      "round": "true"
+    },
+    {
+      "name": "xscale",
+      "type": "linear",
+      "domain": {"data": "spx_data", "field": "time_step"},
+      "range": "width",
+      "zero": "true",
+      "round": "true"
+    },
+    {
+      "name": "yscale_spx",
+      "type": "linear",
+      "domain": {"data": "spx_data", "field": "spx"},
+      "rangeMin": 270,
+      "rangeMax": 390,
+      "reverse": "true",
+      "zero": "true",
+      "round": "true",
+      "nice": "true"
+    },
+    {
+      "name": "yscale_allocations",
+      "type": "linear",
+      "domain": {"data": "model_allocations", "field": "equity_allocation"},
+      "rangeMin": 0,
+      "rangeMax": 120,
+      "reverse": "true",
+      "zero": "true",
+      "round": "true",
+      "nice": "true"
+    },
+    {
+      "name": "yscale_returns",
+      "type": "linear",
+      "domain": {"data": "model_returns", "field": "return"},
+      "rangeMin": 135,
+      "rangeMax": 255,
+      "reverse": "true",
+      "zero": "true",
+      "round": "true",
+      "nice": "true"
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "title": "Time",
+      "scale": "xscale"
+    },
+    {
+      "type": "y",
+      "title": "S&P 500",
+      "scale": "yscale_spx"
+    },
+    {
+      "type": "y",
+      "title": "Model Allocations",
+      "scale": "yscale_allocations",
+      "format": "%"
+    },
+    {
+      "type": "y",
+      "title": "Returns",
+      "scale": "yscale_returns",
+      "format": "%"
+    }
+  ] ,
+  "legends": [
+    {
+      "fill": "colorscale",
+      "title": "model",
+      "properties": {
+        "symbols": {
+          "shape": {"value": "circle"},
+          "strokeWidth": {"value": 0}
+        }
+      }
+    }
+  ]
+}
+
+
+  var embedSpec = {
+    mode: "vega", 
+    spec: vSpec,
+    actions: false
+  };
+
+  vg.embed("#modelcomparison_plot", embedSpec, function(error, result) {
+  
+  });
+  </script>
+</body>
+</html>

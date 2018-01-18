@@ -1,0 +1,250 @@
+<head>
+  <meta charset="utf-8">
+
+<!-- TODO -->
+<!-- Install with npm install vega -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.5/vega.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/1.3.1/vega-lite.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/2.2.0/vega-embed.min.js" charset="utf-8"></script>
+ 
+  <style media="screen">
+    /* Add space between vega-embed links  */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Portfolio Allocation Sample </h1>
+  
+  <div id="portfolioallocation_plot"></div>
+
+  <script>
+  var vSpec = {
+  "width": 600,
+  "height": 400,
+  "padding": "auto",
+  "data": [
+    {
+      "name": "spx_data",
+      "url": "data/sample_spxdata.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"time_step": "number","spx": "number"}
+      }
+    },
+    {
+      "name": "allocations",
+      "url": "data/sample_allocations.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"time_step": "number","asset": "string","weight": "number"}
+      }
+    },
+    {
+      "name": "index_spx",
+      "source": "spx_data",
+      "transform": [
+        {
+          "type": "filter",
+          "test": "datum.time_step == round(index_time)"
+        }
+      ]
+    },
+    {
+      "name": "index_allocations",
+      "source": "allocations",
+      "transform": [
+        {
+          "type": "filter",
+          "test": "datum.time_step == round(index_time)"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "index_time",
+      "init": 10,
+      "streams": [{
+        "type": "mousemove",
+        "expr": "clamp(eventX(), 0, width)",
+        "scale": {"name": "xscale", "invert": true}
+      }]
+    }
+  ],
+  "marks": [
+    { 
+      "name": "vertical_line",
+      "type":"rule",
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale", "signal": "index_time"},
+          "y": {"value": 0},
+          "y2": {"field": {"group": "height"}},
+          "stroke": {"value": "red"}
+        }
+      }
+    },
+    {     
+      "name": "spx_line",
+      "type": "line",
+      "from": {
+        "data": "spx_data"
+      },
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale","field": "time_step"},
+          "y": {"scale": "yscale_spx","field": "spx"},
+          "strokeWidth": {"value": 3},
+          "stroke": {"value": "black"}
+        }
+      }
+    },
+    {
+      "name": "spx_text",
+      "type": "text",
+      "from": {
+        "data": "index_spx"
+      },
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale", "field": "time_step"},
+          "y": {"scale": "yscale_spx", "field": "spx", "offset": 10},
+          "fill": {"value": "black"},
+          "text": {"template": "S&P 500: {{datum.spx|number: 'd'}}"},
+          "baseline": {"value": "middle"}
+        }
+      },
+    },
+    {
+      "name": "allocation_lines",
+      "type": "group",
+        "from": {
+          "data": "allocations",
+          "transform": [{"type": "facet","groupby": "asset"}]
+        },
+      "marks": [
+      {
+        "type": "line",
+        "properties": {
+          "update": {
+            "x": {
+              "scale": "xscale",
+              "field": "time_step"
+            },
+            "y": {
+              "scale": "yscale_allocations",
+              "field": "weight"
+            },
+            "stroke": {"scale": "colorscale","field": "asset"},
+            "strokeWidth": {"value": 3},
+            "strokeOpacity": {"value": 0.8}
+          }
+        }
+      },
+    {
+      "name": "allocation_text",
+      "type": "text",
+      "from": {
+        "data": "index_allocations"
+      },
+      "properties": {
+        "update": {
+          "x": {"scale": "xscale", "field": "time_step", "offset": 5},
+          "y": {"scale": "yscale_allocations", "field": "weight", "offset": 15},
+          "fill": {"scale": "colorscale","field": "asset"},
+          "text": {"template": "{{datum.asset}}: {{datum.weight|number: '.3p'}}"},
+          "baseline": {"value": "middle"}
+        }
+      },
+    }]
+    }
+  ],
+  "scales": [
+    {
+      "name": "colorscale",
+      "type": "ordinal",
+      "domain": {"data": "allocations", "field": "asset"},
+      "range": "category10",
+      "zero": "true",
+      "round": "true"
+    },
+    {
+      "name": "xscale",
+      "type": "linear",
+      "domain": {"data": "spx_data", "field": "time_step"},
+      "range": "width",
+      "zero": "true",
+      "round": "true"
+    },
+    {
+      "name": "yscale_spx",
+      "type": "linear",
+      "domain": {"data": "spx_data", "field": "spx"},
+      "rangeMin": 210,
+      "rangeMax": 400,
+      "reverse": "true",
+      "zero": "true",
+      "round": "true",
+      "nice": "true"
+    },
+    {
+      "name": "yscale_allocations",
+      "type": "linear",
+      "domain": {"data": "allocations", "field": "weight"},
+      "rangeMin": 0,
+      "rangeMax": 190,
+      "reverse": "true",
+      "zero": "true",
+      "round": "true",
+      "nice": "true"
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "title": "Time",
+      "scale": "xscale"
+    },
+    {
+      "type": "y",
+      "title": "S&P 500",
+      "scale": "yscale_spx"
+    },
+    {
+      "type": "y",
+      "title": "Portfolio Allocations",
+      "scale": "yscale_allocations",
+      "format": "%"
+    }
+  ] ,
+  "legends": [
+    {
+      "fill": "colorscale",
+      "title": "asset",
+      "properties": {
+        "symbols": {
+          "shape": {"value": "circle"},
+          "strokeWidth": {"value": 0}
+        }
+      }
+    }
+  ]
+}
+
+
+  var embedSpec = {
+    mode: "vega", 
+    spec: vSpec,
+    actions: false
+  };
+
+  vg.embed("#portfolioallocation_plot", embedSpec, function(error, result) {
+  
+  });
+  </script>
+</body>
+</html>
