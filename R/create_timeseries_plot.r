@@ -1,16 +1,26 @@
 library("ggplot2")
+library("dplyr")
 
-mdata <- read.csv("mdata.csv")
+mdata <- read.csv("base_data.csv")
 
-parse_day_int <- function(dt){
-  return(as.Date(
-    paste(substring(dt, 1, 4),
-          substring(dt, 5, 6),
-          substring(dt, 7, 8),sep="-")))
-}
+# parse_day_int <- function(dt){
+#   return(as.Date(
+#     paste(substring(dt, 1, 4),
+#           substring(dt, 5, 6),
+#           substring(dt, 7, 8),sep="-")))
+# }
+# 
+# mdata$date <- parse_day_int(mdata$obsDate)
+# mdata$lagged_date <- c(mdata$date[-1], mdata$ndays[nrow(mdata)])
+# 
+# mdata <- mdata %>%
+#   select(date, lagged_date, colorv, SPRealIndex)
+# 
+# mdata[mdata$lagged_date > Sys.Date(), "lagged_date"] <- Sys.Date()
+# write.csv(mdata, "base_data.csv", row.names = FALSE)
 
-mdata$date <- parse_day_int(mdata$obsDate)
-mdata$lagged_date <- c(mdata$date[-1], mdata$ndays[nrow(mdata)])
+mdata$date <- as.Date(mdata$date)
+mdata$lagged_date <- as.Date(mdata$lagged_date)
 
 mdata$period <- ifelse(mdata$colorv == 1, "other",
   ifelse(mdata$colorv == 2, "good", 
