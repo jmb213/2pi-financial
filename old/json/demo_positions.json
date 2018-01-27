@@ -1,0 +1,55 @@
+{"ywp@demo.com":
+ {
+  "Banking": {
+         "Savings":  {"savings_demo1": 60000}
+      },
+   "Brokerage": {
+         "Money Market (1%)": {"moneymarket_demo1": 20000},
+         "AAPL": {"aapl_demo1": 10000}
+      },
+  "401(k)": {
+          "SPY": {"spy_demo1": 20000}, 
+          "EEM": {"eem_demo1": 5000}
+      },
+  "Real Assets": {
+        "House": {"house_demo1": 200000},
+        "Mortgage": {"mortgage_demo1": -150000}
+    }
+  },
+"nr@demo.com":
+ {
+  "Banking": {
+         "Savings":  {"savings_demo1": 60000}
+      },
+   "Brokerage": {
+         "Money Market (1%)": {"moneymarket_demo1": 20000},
+         "AAPL": {"aapl_demo1": 10000}
+      },
+  "401(k)": {
+          "SPY": {"spy_demo1": 20000}, 
+          "EEM": {"eem_demo1": 5000}
+      },
+  "Real Assets": {
+        "House": {"house_demo1": 200000},
+        "Mortgage": {"mortgage_demo1": -150000}
+    }
+  },
+"fof@demo.com":
+ {
+  "Banking": {
+         "Savings":  {"savings_demo1": 60000}
+      },
+   "Brokerage": {
+         "Money Market (1%)": {"moneymarket_demo1": 20000},
+         "AAPL": {"aapl_demo1": 10000}
+      },
+  "401(k)": {
+          "SPY": {"spy_demo1": 20000}, 
+          "EEM": {"eem_demo1": 5000}
+      },
+  "Real Assets": {
+        "House": {"house_demo1": 200000},
+        "Mortgage": {"mortgage_demo1": -150000}
+    }
+  }
+}

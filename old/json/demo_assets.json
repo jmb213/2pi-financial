@@ -1,0 +1,9 @@
+{
+  "savings_demo1": {"asset_name": "savings_demo1", "asset_class": "Cash", "is_demo": true},
+  "moneymarket_demo1":  {"asset_name": "moneymarket_demo1", "asset_class": "Cash", "is_demo": true},
+  "aapl_demo1":  {"asset_name": "aapl_demo1", "asset_class": "US Equity", "is_demo": true},
+  "spy_demo1":  {"asset_name": "spy_demo1", "asset_class": "US Equity", "is_demo": true},
+  "eem_demo1":  {"asset_name": "eem_demo1", "asset_class": "EM Equity", "is_demo": true},
+  "house_demo1":  {"asset_name": "house_demo1", "asset_class": "Real Estate", "is_demo": true},
+  "mortgage_demo1":  {"asset_name": "mortgage_demo1", "asset_class": "Real Estate", "is_demo": true} 
+}

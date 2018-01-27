@@ -1,12 +1,12 @@
 from os import environ
-
-from application import app
+from app import app
 
 if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True, port=80)
+    
     HOST = environ.get('SERVER_HOST', 'localhost')
     try:
-        PORT = int(environ.get('SERVER_PORT', '5555'))
+        PORT = int(environ.get('SERVER_PORT', '80'))
     except ValueError:
-        PORT = 5555    
-    app.run(debug=True)
+        PORT = 80    
     app.run(HOST, PORT)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block body %}
+
+    <section id="error" class="container">
+        <h1>404, Page not found</h1>
+        <p>The Page you are looking for doesn't exist or another error occurred.</p>
+        <a class="btn btn-success" href="{{ url_for('home') }}">GO BACK TO THE HOMEPAGE</a>
+    </section><!--/#error-->
+
+{% endblock %}

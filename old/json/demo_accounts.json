@@ -1,0 +1,6 @@
+{
+  "Banking": ["Savings"],
+  "Brokerage": ["Money Market (1%)", "AAPL"],
+  "401(k)": ["SPY", "EEM"],
+  "Real Assets": ["House", "Mortgage"]
+}

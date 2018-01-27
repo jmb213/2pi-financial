@@ -1,0 +1,19 @@
+[
+    {"email": "ywp@demo.com",
+      "password": "demo123",
+      "user_name": "Young working professional",
+      "is_demo": true
+    },
+    
+    {"email": "fof@demo.com",
+      "password": "demo123",
+      "user_name": "Family of 4",
+      "is_demo": true
+    },
+    
+    {"email": "nr@demo.com",
+      "password": "demo123",
+      "user_name": "Nearing retirement",
+      "is_demo": true
+    }
+]
