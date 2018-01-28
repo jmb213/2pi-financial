@@ -2,6 +2,7 @@ from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.assets import Environment, Bundle
 from flask.ext.navigation import Navigation
+from flask_analytics import Analytics
 import os
 import logging
 
@@ -22,6 +23,9 @@ app.logger.info('Enviornment: %s' %app.config['ENV'])
 app.jinja_env.globals['static'] = (
     lambda filename: url_for('static', filename = filename)
 )
+
+# Analytics
+Analytics(app)
 
 # setup assets
 assets = Environment(app)
@@ -115,7 +119,3 @@ class EmailForm(Form):
             
 # Load everything else
 from app import views
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=80)
