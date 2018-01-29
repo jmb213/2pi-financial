@@ -19,13 +19,6 @@ app.config.update(
 Analytics(app)
 app.config['ANALYTICS']['GOOGLE_UNIVERSAL_ANALYTICS']['ACCOUNT'] = ''
 
-# Set up logging
-file_handler = logging.FileHandler('app.log')
-app.logger.addHandler(file_handler)
-app.logger.setLevel(logging.INFO)
-
-app.logger.info('Enviornment: %s' %app.config['ENV'])
-
 # Function to easily find your assets
 # In your template use <link rel=stylesheet href="{{ static('filename') }}">
 app.jinja_env.globals['static'] = (
@@ -60,7 +53,6 @@ nav = Navigation(app)
     
 # Create databases
 db = SQLAlchemy(app)
-app.logger.info('SQL Alchemy loaded')
 
 class CRUDMixin(object):
     __table_args__ = {'extend_existing': True}
@@ -107,7 +99,6 @@ class EmailList(db.Model, CRUDMixin):
 
         
 db.create_all()
-app.logger.info('Data tables created')
 
 
 # Forms
