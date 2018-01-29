@@ -8,8 +8,15 @@ import logging
 
 # Configure our app and database from the file
 app = Flask(__name__)
-app.config.from_object('config')
-app.secret_key = app.config['SECRET_KEY']
+app.config.update(
+    ENV = os.environ.get('ENV'),
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI'),
+    SECRET_KEY = os.environ.get('SECRET_KEY'),
+    WTF_CSRF_ENABLED = True
+)
+
+Analytics(app)
+app.config['ANALYTICS']['GOOGLE_UNIVERSAL_ANALYTICS']['ACCOUNT'] = ''
 
 # Set up logging
 file_handler = logging.FileHandler('logs/app.log')
@@ -25,7 +32,6 @@ app.jinja_env.globals['static'] = (
 )
 
 # Analytics
-Analytics(app)
 
 # setup assets
 assets = Environment(app)
