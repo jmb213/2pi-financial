@@ -19,7 +19,7 @@ Analytics(app)
 app.config['ANALYTICS']['GOOGLE_UNIVERSAL_ANALYTICS']['ACCOUNT'] = ''
 
 # Set up logging
-file_handler = logging.FileHandler('logs/app.log')
+file_handler = logging.FileHandler('app.log')
 app.logger.addHandler(file_handler)
 app.logger.setLevel(logging.INFO)
 
