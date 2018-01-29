@@ -11,11 +11,11 @@ nav.Bar('nav', [
 
 
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def home():    
+    form = EmailForm()
+
     return 'Home'
     
-    form = EmailForm()
-        
     if form.validate_on_submit():                        
         dat = {'email': form.email.data}    
         email = EmailList.create(**dat)
