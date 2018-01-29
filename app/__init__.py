@@ -9,6 +9,7 @@ import logging
 # Configure our app and database from the file
 app = Flask(__name__)
 app.config.update(
+    debug = True,
     ENV = os.environ.get('ENV'),
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL'),
     SECRET_KEY = os.environ.get('SECRET_KEY'),
@@ -36,7 +37,7 @@ app.jinja_env.globals['static'] = (
 # setup assets
 assets = Environment(app)
 assets.url_expire = False
-assets.debug = app.config['ENV'] == 'development'
+assets.debug = True
 assets.load_path = ['%s/static' % app.config.root_path]
 
 assets.register('css',
