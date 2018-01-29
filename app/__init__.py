@@ -10,7 +10,7 @@ import logging
 app = Flask(__name__)
 app.config.update(
     ENV = os.environ.get('ENV'),
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI'),
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL'),
     SECRET_KEY = os.environ.get('SECRET_KEY'),
     WTF_CSRF_ENABLED = True
 )

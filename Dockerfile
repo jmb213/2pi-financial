@@ -14,7 +14,7 @@ EXPOSE 80
 
 # Define environment variable
 ENV ENV 'development'
-ENV SQLALCHEMY_DATABASE_URI 'sqlite:////base/data/app.db'
+ENV DATABASE_URL 'sqlite:////base/data/app.db'
 ENV SECRET_KEY '9Sz8DPDmW3J3ue'
 
 # Run app.py when the container launches
