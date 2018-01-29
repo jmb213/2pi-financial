@@ -12,6 +12,8 @@ nav.Bar('nav', [
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    return 'Home'
+    
     form = EmailForm()
         
     if form.validate_on_submit():                        
