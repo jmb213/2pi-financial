@@ -99,7 +99,7 @@ class EmailList(db.Model, CRUDMixin):
     __tablename__ = 'email'
     
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255), index=True, unique=True)
+    email = db.Column(db.String(255), index=True)
         
     def __repr__(self):
         return '<EmailList %r>' % (self.email)
