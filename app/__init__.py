@@ -97,6 +97,7 @@ class EmailList(db.Model, CRUDMixin):
         return '<EmailList %r>' % (self.email)
      
 db.create_all()
+# Add sample email data
 db.session.add(EmailList(email='test123@test.com'))
 db.session.commit()
 
