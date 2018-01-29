@@ -13,8 +13,6 @@ nav.Bar('nav', [
 @app.route('/', methods=['GET', 'POST'])
 def home():    
     form = EmailForm()
-
-    return 'Home'
     
     if form.validate_on_submit():                        
         dat = {'email': form.email.data}    

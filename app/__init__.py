@@ -8,14 +8,16 @@ import logging
 
 # Configure our app and database from the file
 app = Flask(__name__)
+app.debug = True
 app.config.update(
     debug = True,
     ENV = os.environ.get('ENV'),
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL'),
     SECRET_KEY = os.environ.get('SECRET_KEY'),
-    WTF_CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = False
 )
 
+# Analytics
 Analytics(app)
 app.config['ANALYTICS']['GOOGLE_UNIVERSAL_ANALYTICS']['ACCOUNT'] = ''
 
@@ -25,12 +27,9 @@ app.jinja_env.globals['static'] = (
     lambda filename: url_for('static', filename = filename)
 )
 
-# Analytics
-
 # setup assets
 assets = Environment(app)
 assets.url_expire = False
-assets.debug = True
 assets.load_path = ['%s/static' % app.config.root_path]
 
 assets.register('css',
@@ -51,7 +50,7 @@ assets.register('js', Bundle(
 # For the navigation bar
 nav = Navigation(app)
     
-# Create databases
+# Create database
 db = SQLAlchemy(app)
 
 class CRUDMixin(object):
@@ -96,10 +95,10 @@ class EmailList(db.Model, CRUDMixin):
         
     def __repr__(self):
         return '<EmailList %r>' % (self.email)
-
-        
+     
 db.create_all()
-
+db.session.add(EmailList(email='test123@test.com')
+db.session.commit()
 
 # Forms
 from flask.ext.wtf import Form
