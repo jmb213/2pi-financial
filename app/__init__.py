@@ -32,21 +32,22 @@ assets = Environment(app)
 assets.url_expire = False
 assets.load_path = ['%s/static' % app.config.root_path]
 
-assets.register('css',
-    Bundle(
-      'css/vendor/*.css',
-      'css/*.css',
-      output='css/app.%(version)s.css'))
-
 # Bundle these in a specific order for dependency reasons
 assets.register('js', Bundle(
     'js/vendor/jquery/jquery.js',
+    'js/vendor/bootstrap.min.js',
     'js/vendor/d3/d3.min.js',
     'js/vendor/nvd3/nv.d3.min.js',
     'js/vendor/*.js',
     'js/*.js',
     output='js/app.%(version)s.js'))
     
+assets.register('css',
+    Bundle(
+      'css/vendor/*.css',
+      'css/*.css',
+      output='css/app.%(version)s.css'))
+
 # For the navigation bar
 nav = Navigation(app)
     

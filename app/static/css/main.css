@@ -27,7 +27,7 @@
   box-sizing: border-box;
 }
 body {
-  padding-top: 80px;
+  padding-top: 120px;
   color: #34495e;
   background: #f0f0c9;
   font-family: 'Roboto', sans-serif;
@@ -732,12 +732,19 @@ ul.tag-cloud li {
 }
 .navbar-inverse .navbar-brand {
   font-family: 'Bubbler One', sans-serif;
-  font-size: 36px;
+  font-size: auto;
   line-height: 50px;
+  padding: 3px;
   color: #fff;
+  height: 106px;
 }
+ .navbar-brand, img {
+  width: auto;
+  height: 100px;
+ }
 .navbar-inverse .navbar-nav {
   margin-top: 20px;
+  font-size: 16px;
 }
 .navbar-inverse .navbar-nav > li > a {
   padding-top: 7px;

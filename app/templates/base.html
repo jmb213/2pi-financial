@@ -10,20 +10,15 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    {% assets "js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    
     {% assets "css" %}
       <link rel="stylesheet" href="{{ ASSET_URL }}">
     {% endassets %}
 
-    <link rel="shortcut icon" href="{{ static('img/ico/favicon.ico') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ static('img/ico/apple-touch-icon-144-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ static('img/ico/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ static('img/ico/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ static('img/ico/apple-touch-icon-57-precomposed.png') }}">
-
-    {% assets "js" %}
-      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-
+    <link rel="shortcut icon" href="{{ static('img/ico/favicon.png') }}">
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -39,7 +34,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('home') }}"><img src="{{ static('img/logo.png') }}" alt="logo"></a>
+                <a class="navbar-brand" href="{{ url_for('home') }}">
+                  <img src="{{ static('img/logo.png') }}" alt="logo">
+                  <div style="display: inline-block"> 2 Pi Financial </div>
+                </a>
             </div>
 
             <div class="collapse navbar-collapse">
