@@ -1113,3 +1113,13 @@ ul.faq li > div h3 {
   margin-top: 150px;
   margin-bottom: 150px;
 }
+
+#market_plot{
+   overflow-x: scroll;
+}
+
+@media (min-width: 640px) {
+   #market_plot{
+      overflow-x: visible;
+   }
+}
