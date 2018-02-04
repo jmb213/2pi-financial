@@ -7,6 +7,6 @@ reference/
 app/static/.webassets-cache/
 app/static/css/app.*
 app/static/js/app.*
-data/
+*.db
 config.py
 R/data
