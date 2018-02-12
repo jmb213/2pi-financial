@@ -1,7 +1,7 @@
 var vSpec = {
-"width": 600,
-"height": 400,
-"padding": {"top": 10,"left": 70,"bottom": 60,"right": 160},
+"width": 520,
+"height": 360,
+"padding": {"top": 10,"left": 60,"bottom": 40,"right": 170},
 "signals": [
 {
   "name": "index_date",
