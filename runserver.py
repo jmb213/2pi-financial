@@ -6,4 +6,5 @@ if __name__ == '__main__':
     PORT = environ.get('SERVER_PORT', 80)
     if PORT == '':
         PORT = 80
+    PORT = int(PORT)
     app.run(HOST, PORT, debug=True)
