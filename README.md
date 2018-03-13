@@ -1,12 +1,12 @@
 ## Build the container
 ```
-docker build -t webapp .
+docker build --no-cache --build-arg SERVER_PORT=8000 -t webapp .
 ```
 
 ## Run the container
 ```
-docker run -it --rm  --name 2pi  \
-    -p 80:80 \
+docker run -it --rm --name 2pi  \
+    -p 8000:8000 \
     -v /data/d/projects/other/2pi-financial/:/base \
     webapp
 ```
