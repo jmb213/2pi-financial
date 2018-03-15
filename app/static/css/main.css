@@ -750,7 +750,7 @@ ul.tag-cloud li {
   padding-top: 7px;
   padding-bottom: 7px;
   border-radius: 4px;
-  color: #05668D;
+  color: #9AC2B9;
 }
 /* Adjust this setting */
 .navbar-inverse .navbar-nav > .active > a,
@@ -759,7 +759,7 @@ ul.tag-cloud li {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #05668D;
+  background-color: #9AC2B9;
 }
 .navbar-inverse .navbar-nav .dropdown-menu {
   background-color: #05668D;
