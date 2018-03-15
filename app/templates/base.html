@@ -19,14 +19,44 @@
     {% endassets %}
 
     <link rel="shortcut icon" href="{{ static('img/ico/favicon.png') }}">
+
+
+    <style>
+      body {
+           background-color: #F8FBFA;
+      }
+      .twopiHeader {
+           background-color: white;
+           height: 160px
+      }
+
+      .twopiHeaderText {
+          display: inline-block;
+          height:50px;
+          width:400px;
+      }
+      .twopiSmallScreen {
+        display: none;
+      }
+      @media only screen and (max-width: 650px) {
+          .twopiHeader {
+            background-color: white;
+            height: 300px
+          }
+          .twopiSmallScreen {
+            display: inline-block;
+          }
+      }
+    </style>
+
+
 </head>
 <body>
     <!--[if lt IE 7]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
 
-    <header class="navbar navbar-inverse navbar-fixed-top dollar-bill" role="banner"
-      style="background-color:white;height:130px">
+    <header class="twopiHeader navbar navbar-inverse navbar-fixed-top dollar-bill" role="banner">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,7 +66,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ url_for('home') }}">
-                  <img src="{{ static('img/2PiBanner.png') }}" alt="logo" style="height:120px">
+                  <span>
+                    <img src="{{ static('img/2PiBannerNoText.png') }}" alt="logo" style="height:150px">
+                    <img class="twopiHeaderText" src="{{ static('img/2PiBannerOnlyText.png') }}" alt="logo">
+                  </span>
                 </a>
             </div>
 
@@ -51,6 +84,16 @@
             </div>
         </div>
     </header><!--/header-->
+
+
+    <br class="twopiSmallScreen">
+    <br class="twopiSmallScreen">
+    <br class="twopiSmallScreen">
+    <br class="twopiSmallScreen">
+    <br class="twopiSmallScreen">
+
+
+
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -68,11 +111,11 @@
     </div>
 
 
-  <footer id="footer" class="dollar-bill">
+  <footer id="footer" class="dollar-bill" style="background-color:#9AC2B9">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                &copy; 2018 <a target="_blank" href="/" title="2PiFinancial">2Pi Financial</a>. All Rights Reserved.
+                &copy; 2018 <a target="_blank" href="/" title="2PiFinancial">2PiFinancial</a>. All Rights Reserved.
             </div>
         </div>
       </div>
