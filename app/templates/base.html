@@ -25,9 +25,14 @@
       body {
            background-color: #F8FBFA;
       }
+      .introStyle {
+        margin-top: 50px;
+        padding-top: 10px;
+      }
       .twopiHeader {
            background-color: white;
-           height: 160px
+           height: 160px;
+           padding-bottom: 10px;
       }
 
       .twopiHeaderText {
@@ -38,13 +43,35 @@
       .twopiSmallScreen {
         display: none;
       }
-      @media only screen and (max-width: 650px) {
+      @media only screen and (max-width: 640px) {
           .twopiHeader {
             background-color: white;
-            height: 300px
+            height: 250px
+          }
+          .twopiHeaderText {
+              display: inline-block;
+              height:43px;
+              width:344px;
           }
           .twopiSmallScreen {
             display: inline-block;
+          }
+          .introStyle {
+            margin-top: 75px;
+          }
+      }
+      @media only screen and (max-width: 350px) {
+          .twopiHeaderText {
+              display: none;
+          }
+          .twopiHeader {
+               height: 160px;
+          }
+          .twopiSmallScreen {
+            display: none;
+          }
+          .introStyle {
+            margin-top: 50px;
           }
       }
     </style>
@@ -89,11 +116,6 @@
     <br class="twopiSmallScreen">
     <br class="twopiSmallScreen">
     <br class="twopiSmallScreen">
-    <br class="twopiSmallScreen">
-    <br class="twopiSmallScreen">
-
-
-
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
