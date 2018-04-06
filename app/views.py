@@ -5,8 +5,8 @@ from app import app, nav, db, EmailForm, EmailList
 # Navigation bars
 nav.Bar('nav', [
     nav.Item('Home', 'home'),
-    nav.Item('FAQ', 'faq'),
-    nav.Item('About', 'about')
+    # nav.Item('FAQ', 'faq'),
+    # nav.Item('About', 'about')
 ])
 
 
@@ -28,14 +28,14 @@ def access():
     return render_template('access.html')
     
     
-@app.route('/faq')
-def faq():
-    return render_template('faq.html')
+# @app.route('/faq')
+# def faq():
+    # return render_template('faq.html')
 
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+# @app.route('/about')
+# def about():
+    # return render_template('about.html')
 
     
 @app.errorhandler(404)
