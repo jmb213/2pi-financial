@@ -114,6 +114,8 @@ class EmailForm(Form):
         email = EmailList.query.filter(EmailList.email == field.data).first()
         if email is not None:
             raise ValidationError("A user with that email already exists")
+        else:
+            raise ValidationError("Thanks for signing up")
 
             
 # Load everything else
