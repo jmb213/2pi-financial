@@ -41,7 +41,7 @@ assets.register('js', Bundle(
     'js/vendor/*.js',
     'js/*.js',
     output='js/app.%(version)s.js'))
-    
+
 assets.register('css',
     Bundle(
       'css/vendor/*.css',
@@ -50,7 +50,7 @@ assets.register('css',
 
 # For the navigation bar
 nav = Navigation(app)
-    
+
 # Create database
 db = SQLAlchemy(app)
 
@@ -87,16 +87,16 @@ class CRUDMixin(object):
         db.session.delete(self)
         return commit and db.session.commit()
 
-        
+
 class EmailList(db.Model, CRUDMixin):
     __tablename__ = 'email'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), index=True)
-        
+
     def __repr__(self):
         return '<EmailList %r>' % (self.email)
-     
+
 db.create_all()
 # Add sample email data
 db.session.add(EmailList(email='test123@test.com'))
@@ -114,9 +114,7 @@ class EmailForm(Form):
         email = EmailList.query.filter(EmailList.email == field.data).first()
         if email is not None:
             raise ValidationError("A user with that email already exists")
-        else:
-            raise ValidationError("Thanks for signing up")
 
-            
+
 # Load everything else
 from app import views
