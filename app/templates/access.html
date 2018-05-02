@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block body %}
+{% import "helpers/forms.html" as forms %} {{super()}}
 
-<h3>Thank you for signing up for updates on 2Pi!</h3>
+<section>
+<h4>Thank you for signing up for updates on 2Pi! We will be in touch regarding early access to our tools.</h4>
+</section>
 
+<br>
+
+<section>
+<a href="{{ url_for('home') }}">
+Back to home page
+</a>
+</section>
+
+<br>
 {% endblock body %}

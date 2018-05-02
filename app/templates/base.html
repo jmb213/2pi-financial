@@ -20,63 +20,6 @@
 
     <link rel="shortcut icon" href="{{ static('img/ico/favicon.png') }}">
 
-
-    <style>
-      body {
-           background-color: #F8FBFA;
-      }
-      .introStyle {
-        margin-top: 50px;
-        padding-top: 10px;
-      }
-      .twopiHeader {
-           background-color: white;
-           height: 160px;
-           padding-bottom: 10px;
-      }
-
-      .twopiHeaderText {
-          display: inline-block;
-          height:50px;
-          width:400px;
-      }
-      .twopiSmallScreen {
-        display: none;
-      }
-      @media only screen and (max-width: 640px) {
-          .twopiHeader {
-            background-color: white;
-            height: 250px
-          }
-          .twopiHeaderText {
-              display: inline-block;
-              height:43px;
-              width:344px;
-          }
-          .twopiSmallScreen {
-            display: inline-block;
-          }
-          .introStyle {
-            margin-top: 75px;
-          }
-      }
-      @media only screen and (max-width: 350px) {
-          .twopiHeaderText {
-              display: none;
-          }
-          .twopiHeader {
-               height: 160px;
-          }
-          .twopiSmallScreen {
-            display: none;
-          }
-          .introStyle {
-            margin-top: 50px;
-          }
-      }
-    </style>
-
-
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -94,7 +37,7 @@
                 </button>
                 <a class="navbar-brand" href="{{ url_for('home') }}">
                   <span>
-                    <img src="{{ static('img/2PiBannerNoText.png') }}" alt="logo" style="height:150px">
+                    <img class="twopiHeaderLogo" src="{{ static('img/2PiBannerNoText.png') }}" alt="logo">
                     <img class="twopiHeaderText" src="{{ static('img/2PiBannerOnlyText.png') }}" alt="logo">
                   </span>
                 </a>
@@ -103,7 +46,8 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     {% for item in nav.nav %}
-                      <li class="{{ 'active' if item.is_active else '' }}">
+                      <li class="active">
+                      <!--<li class="{{ 'active' if item.is_active else '' }}"> -->
                           <a href="{{ item.url }}">{{ item.label }}</a>
                       </li>
                     {% endfor %}
@@ -111,11 +55,6 @@
             </div>
         </div>
     </header><!--/header-->
-
-
-    <br class="twopiSmallScreen">
-    <br class="twopiSmallScreen">
-    <br class="twopiSmallScreen">
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
